@@ -12,6 +12,6 @@ function authInfo(response) {
     //} else {
     //    alert('not auth');
     //}
-    $(p).text(response.session.mid).add("body");
+    $('p').text(response.session.mid).add("body");
 }
 //VK.Auth.getLoginStatus(authInfo);
