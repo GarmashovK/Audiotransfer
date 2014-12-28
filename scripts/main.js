@@ -1,7 +1,8 @@
 // JavaScript source code
-$(document).ready(function () {
-    VK.Auth.login(authInfo, 1);
-});
+
+//$(document).ready(function () {
+    
+//});
 VK.init({
     apiId: 4703399
 });
@@ -14,4 +15,5 @@ function authInfo(response) {
     //}
     $('p').text(response.session.mid).add("body");
 }
+
 //VK.Auth.getLoginStatus(authInfo);
