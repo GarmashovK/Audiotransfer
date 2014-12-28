@@ -1,10 +1,14 @@
 // JavaScript source code
 var app_id = 4703399;
+var user_id;
 
 $(document).ready(function () {
-    var cookie = getCookie('vk_app_4703399');
-    if(cookie != null)
-        $('authBtn').hide();
+    $.cookie.json = true;
+    var cookie = $.cookie('vk_app_4703399');
+    if (cookie != null) {
+        $('authBtn').fadeOut();
+        alert(cookie.mid);
+    }
 });
 
 VK.init({
@@ -17,7 +21,8 @@ function authInfo(response) {
     //} else {
     //    alert('not auth');
     //}
-    $('p').text(response.session.mid).add("body");
+    //$('p').text(response.session.mid).add("body");
+    user_id = response.session.mid;
 }
 
 function authClick() {
