@@ -2,7 +2,8 @@
 var app_id = 4703399;
 
 $(document).ready(function () {
-    if(document.cookie['vk_app_4703399'] != null)
+    var cookies = document.cookie;
+    if(cookies['vk_app_4703399'] != null)
         $('authBtn').hide();
 });
 
