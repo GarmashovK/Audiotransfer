@@ -6,8 +6,9 @@ $(document).ready(function () {
     //$.cookie.json = true;
     var cookie = $.cookie('vk_app_4703399');
     if (cookie != null) {
-        $('authBtn').fadeOut();
-        user_id = getUserId(cookie);
+        $('#authBtn').fadeOut();
+        VK.Auth.getLoginStatus(authInfo);
+        loadTracks();
     }
 });
 
@@ -25,12 +26,6 @@ function authInfo(response) {
     user_id = response.session.mid;
 }
 
-function getUserId(str) {
-    var regex = /mid=(\d+)/ ;
-    var match = regex.exec(str);
-    return match;
-}
-
 function authClick() {
     VK.Auth.login(authInfo, 8);
 }
@@ -42,5 +37,8 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-
-//VK.Auth.getLoginStatus(authInfo);
+function loadTracks() {
+    VK.Api.call('audio.get',{owner_id:user_id,count: 5},function(response){
+        $("<p>").text(response.artist + ' ' + response.title).appendTo('#tracks');
+    });
+}
