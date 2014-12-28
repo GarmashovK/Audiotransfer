@@ -26,7 +26,7 @@ function authInfo(response) {
 }
 
 function getUserId(str) {
-    var pattern = "&mid=(\d)&";
+    var pattern = "&mid=(\d+)&";
     var regex = new RegExp(pattern);
     var match = regex.exec(str);
     return match;
