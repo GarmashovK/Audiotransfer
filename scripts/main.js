@@ -3,7 +3,7 @@ var app_id = 4703399;
 var user_id;
 
 $(document).ready(function () {
-    $.cookie.json = true;
+    //$.cookie.json = true;
     var cookie = $.cookie('vk_app_4703399');
     if (cookie != null) {
         $('authBtn').fadeOut();
