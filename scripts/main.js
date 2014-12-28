@@ -1,10 +1,13 @@
 // JavaScript source code
+var app_id = 4703399;
 
-//$(document).ready(function () {
-    
-//});
+$(document).ready(function () {
+    if(document.cookie['vk_app_4703399'] !== null)
+        $('authBtn').hide();
+});
+
 VK.init({
-    apiId: 4703399
+    apiId: app_id
 });
 
 function authInfo(response) {
@@ -14,6 +17,10 @@ function authInfo(response) {
     //    alert('not auth');
     //}
     $('p').text(response.session.mid).add("body");
+}
+
+function authClick() {
+    VK.Auth.login(authInfo, 8);
 }
 
 //VK.Auth.getLoginStatus(authInfo);
