@@ -7,7 +7,7 @@ $(document).ready(function () {
     var cookie = $.cookie('vk_app_4703399');
     if (cookie != null) {
         $('authBtn').fadeOut();
-        alert(cookie.mid);
+        alert(getUserId(cookie));
     }
 });
 
@@ -23,6 +23,13 @@ function authInfo(response) {
     //}
     //$('p').text(response.session.mid).add("body");
     user_id = response.session.mid;
+}
+
+function getUserId(str) {
+    var pattern = "&mid=(\d)&";
+    var regex = new RegExp(pattern);
+    var match = regex.exec(str)[0];
+    return match;
 }
 
 function authClick() {
