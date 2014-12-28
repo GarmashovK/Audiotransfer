@@ -1,6 +1,6 @@
 // JavaScript source code
 $(document).ready(function () {
-    VK.Auth.login(authInfo);
+    VK.Auth.login(authInfo, 1);
 });
 VK.init({
     apiId: 4703399
