@@ -39,8 +39,9 @@ function getCookie(name) {
 
 function loadTracks() {
     VK.Api.call('audio.get', { owner_id: user_id, need_user: 0, count: 5 },
-        function (response) {
-            var items = response.items;
+        function (data) {
+            //alert(response.items);
+            var items = data.response;
             for (var i = 0; i < items.length; i++)
                 $("<p>").text(items[i].artist + ' ' + items[i].title).appendTo('#tracks');
     });
