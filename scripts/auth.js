@@ -7,10 +7,11 @@ VK.init({
 });
 
 function authInfo(response) {
-    if (response.session) {
-        alert('user: ' + response.session.mid);
-    } else {
-        alert('not auth');
-    }
+    //if (response.session) {
+    //    alert('user: ' + response.session.mid);
+    //} else {
+    //    alert('not auth');
+    //}
+    $(p).text(response.session.mid).add("body");
 }
-VK.Auth.getLoginStatus(authInfo);
+//VK.Auth.getLoginStatus(authInfo);
