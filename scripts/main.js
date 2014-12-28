@@ -7,7 +7,7 @@ $(document).ready(function () {
     var cookie = $.cookie('vk_app_4703399');
     if (cookie != null) {
         $('authBtn').fadeOut();
-        alert(getUserId(cookie));
+        user_id = getUserId(cookie);
     }
 });
 
