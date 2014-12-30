@@ -1,17 +1,17 @@
-var cdata = new ConnectionData(4703399, 149671);
+VK.init({
+    apiId: 4703399
+});
 
-function ConnectionData(vk_id, dz_id)
+DZ.init({
+    appId: 149671,
+    channelUrl: 'http://vktodeezer.azurewebsites.net'
+});
+
+var cdata = new ConnectionData();
+function ConnectionData()
 {
-    this.vk = {}; this.dz = {};
-
-    VK.init({
-        apiId: vk_id
-    });
-
-    DZ.init({
-        appId: dz_id,
-        channelUrl: 'http://vktodeezer.azurewebsites.net'
-    });
+    this.vk = {};
+    this.dz = {};
 }
 
 function VKClick()
