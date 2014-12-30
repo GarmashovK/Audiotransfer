@@ -12,7 +12,7 @@ function ConnectionData(vk_id, dz_id)
 
     DZ.init({
         appId: this.dz.appid,
-        channelUrl: 'http://vktodeezer.azurewebsites.net/index.html'
+        channelUrl: 'http://vktodeezer.azurewebsites.net'
     });
 }
 
@@ -30,8 +30,8 @@ function DZClick()
 
 $(document).ready(function ()
 {
-    VK.Auth.logout(
-        function (response) { console.log(response); });
+    VK.Auth.logout();
+    DZ.logout();
 });
 
 function DZAuthInfo(response)
