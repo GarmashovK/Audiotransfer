@@ -26,11 +26,10 @@ function DZClick()
     });
 }
 
-$(document).ready(function ()
+$(document).one('ready', function ()
 {
     VK.Auth.getLoginStatus(VKAuthInfo);
     DZ.getLoginStatus(DZAuthInfo);
-    $(document).unbind('ready');
 });
 
 function DZAuthInfo(response)
