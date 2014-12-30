@@ -12,7 +12,7 @@ function ConnectionData(vk_id, dz_id)
 
     DZ.init({
         appId: this.dz.appid,
-        channelUrl: 'http://vktodeezer.azurewebsites.net'
+        channelUrl: 'http://vktodeezer.azurewebsites.net/index.html'
     });
 }
 
