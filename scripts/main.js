@@ -31,7 +31,6 @@ function DZClick()
 $(document).ready(function ()
 {
     VK.Auth.logout();
-    DZ.logout();
 });
 
 function DZAuthInfo(response)
