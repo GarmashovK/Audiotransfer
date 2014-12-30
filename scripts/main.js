@@ -38,10 +38,10 @@ function DZAuthInfo(response)
     {
         cdata.dz.uid = response.userID | response.authResponse.userID;
         $('#DZAuthBtn').hide();
-        console.log('access login!');
+        console.log('Success login DZ!');
     } else
     {
-        console.log('User cancelled login or did not fully authorize.');
+        console.log('Login is failed DZ!');
     }
 }
 
@@ -51,11 +51,11 @@ function VKAuthInfo(response)
     {
         cdata.vk.uid = response.session.mid;
         $('#VKAuthBtn').hide();
-        console.log('Success login!');
+        console.log('Success login VK!');
         //loadTracks();
     } else
     {
-        console.log('Login is failed!');
+        console.log('Login is failed VK!');
     }
 }
 
