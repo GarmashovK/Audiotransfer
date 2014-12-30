@@ -37,7 +37,7 @@ function DZAuthInfo(response)
     if (response.authResponse)
     {
         cdata.dz.uid = response.userID | response.authResponse.userID;
-        $('#DZAuthBtn').hide();
+        $('#DZAuthBtn').fadeOut();
         console.log('Success login DZ!');
     } else
     {
@@ -50,7 +50,7 @@ function VKAuthInfo(response)
     if (response.session)
     {
         cdata.vk.uid = response.session.mid;
-        $('#VKAuthBtn').hide();
+        $('#VKAuthBtn').fadeOut();
         console.log('Success login VK!');
         //loadTracks();
     } else
