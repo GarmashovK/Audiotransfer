@@ -2,8 +2,9 @@ var cdata = new ConnectionData(4703399, 149671);
 
 function ConnectionData(vk_id, dz_id)
 {
-    this.vk['appid'] = vk_id;
-    this.dz['appid'] = dz_id;
+    this.vk = {}; this.dz = {};
+    this.vk.appid = vk_id;
+    this.dz.appid = dz_id;
 
     VK.init({
         apiId: this.vk.appid
