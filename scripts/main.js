@@ -19,7 +19,7 @@ function ConnectionData(vk_id, dz_id)
 function authClick()
 {    
     VK.Auth.login(VKAuthInfo, 8);
-    DZ.Auth.login(DZAuthInfo, {
+    DZ.login(DZAuthInfo, {
         perms: 'basic_access,manage_library,delete_library'
     });
 }
