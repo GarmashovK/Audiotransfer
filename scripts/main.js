@@ -36,7 +36,7 @@ function DZAuthInfo(response)
 {
     if (response.authResponse)
     {
-        cdata.dz.uid = response.userID | resonse.authResponse.userID;
+        cdata.dz.uid = response.userID | response.authResponse.userID;
         $('#DZAuthBtn').hide();
         console.log('Welcome!  Fetching your information.... ');
         DZ.api('/user/me', function (response)
