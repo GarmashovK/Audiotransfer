@@ -12,6 +12,9 @@ function ConnectionData(vk_id, dz_id)
         appId: dz_id,
         channelUrl: 'http://vktodeezer.azurewebsites.net'
     });
+
+    VK.Auth.getLoginStatus(VKAuthInfo);
+    DZ.getLoginStatus(DZAuthInfo);
 }
 
 function VKClick()
@@ -28,8 +31,6 @@ function DZClick()
 
 window.onload = function ()
 {
-    VK.Auth.getLoginStatus(VKAuthInfo);
-    DZ.getLoginStatus(DZAuthInfo);
 };
 
 function DZAuthInfo(response)
