@@ -16,9 +16,13 @@ function ConnectionData(vk_id, dz_id)
     });
 }
 
-function authClick()
+function VKClick()
 {    
     VK.Auth.login(VKAuthInfo, 8);
+}
+
+function DZClick()
+{
     DZ.login(DZAuthInfo, {
         perms: 'basic_access,manage_library,delete_library'
     });
@@ -28,14 +32,6 @@ $(document).ready(function ()
 {
     VK.Auth.logout(
         function (response) { console.log(response); });
-    VK.UI.button('authBtn');
-    //var cookie = $.cookie('vk_app_4703399');
-    //if (cookie != null)
-    //{
-    //    $('#authBtn').fadeOut();
-    //    VK.Auth.getLoginStatus(VKAuthInfo);
-    //    loadTracks();
-    //}
 });
 
 function DZAuthInfo(response)
