@@ -1,48 +1,77 @@
-// JavaScript source code
-var app_id = 4703399;
-var user_id;
-
-$(document).ready(function () {
-    //$.cookie.json = true;
-    var cookie = $.cookie('vk_app_4703399');
-    if (cookie != null) {
-        $('#authBtn').fadeOut();
-        VK.Auth.getLoginStatus(authInfo);
-        loadTracks();
-    }
-});
+var cdata = new ConnectionData(4703399, 149671);
 
 VK.init({
-    apiId: app_id
+    apiId: cdata.vk.aid
 });
 
-function authInfo(response) {
-    //if (response.session) {
-    //    alert('user: ' + response.session.mid);
-    //} else {
-    //    alert('not auth');
+DZ.init({
+    appId: cdata.dz.aid,
+    channelUrl: 'http://vktodeezer.azurewebsites.net'
+});
+
+function ConnectionData(vk_id, dz_id)
+{
+    this.vk.aid = vk_id;
+    this.dz.aid = dz_id;
+}
+
+function authClick()
+{    
+    VK.Auth.login(VKAuthInfo, 8);
+    DZ.Auth.login(DZAuthInfo, {
+        perms: 'basic_access,manage_library,delete_library'
+    });
+}
+
+$(document).ready(function ()
+{
+    VK.Auth.logout(
+        function (response) { console.log(response); });
+    VK.UI.button('authBtn');
+    //var cookie = $.cookie('vk_app_4703399');
+    //if (cookie != null)
+    //{
+    //    $('#authBtn').fadeOut();
+    //    VK.Auth.getLoginStatus(VKAuthInfo);
+    //    loadTracks();
     //}
-    //$('p').text(response.session.mid).add("body");
-    user_id = response.session.mid;
+});
+
+function DZAuthInfo(response)
+{
+    if (response.authResponse)
+    {
+        console.log('Welcome!  Fetching your information.... ');
+        DZ.api('/user/me', function (response)
+        {
+            console.log('Good to see you, ' + response.name + '.');
+        });
+    } else
+    {
+        console.log('User cancelled login or did not fully authorize.');
+    }
 }
 
-function authClick() {
-    VK.Auth.login(authInfo, 8);
+function VKAuthInfo(response)
+{
+    if (response.session)
+    {
+        cdata.vk.uid = response.session.mid;
+        loadTracks();
+    } else
+    {
+        console.log('Login is failed!');
+    }
 }
 
-function getCookie(name) {
-    var matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-         ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-function loadTracks() {
-    VK.Api.call('audio.get', { owner_id: user_id, need_user: 0, count: 5 },
-        function (data) {
+function loadTracks()
+{
+    VK.Api.call('audio.get', { owner_id: cdata.vk.uid, need_user: 0, count: 5 },
+        function (data)
+        {
             //alert(response.items);
             var items = data.response;
             for (var i = 0; i < items.length; i++)
                 $("<p>").text(items[i].artist + ' ' + items[i].title).appendTo('#tracks');
-    });
+        });
 }
