@@ -55,21 +55,22 @@ function VKAuthInfo(response)
     {
         cdata.vk.uid = response.session.mid;
         $('#VKAuthBtn').hide();
-        loadTracks();
+        console.log('Success login!');
+        //loadTracks();
     } else
     {
         console.log('Login is failed!');
     }
 }
 
-function loadTracks()
-{
-    VK.Api.call('audio.get', { owner_id: cdata.vk.uid, need_user: 0, count: 5 },
-        function (data)
-        {
-            //alert(response.items);
-            var items = data.response;
-            for (var i = 0; i < items.length; i++)
-                $("<p>").text(items[i].artist + ' ' + items[i].title).appendTo('#tracks');
-        });
-}
+//function loadTracks()
+//{
+//    VK.Api.call('audio.get', { owner_id: cdata.vk.uid, need_user: 0, count: 5 },
+//        function (data)
+//        {
+//            //alert(response.items);
+//            var items = data.response;
+//            for (var i = 0; i < items.length; i++)
+//                $("<p>").text(items[i].artist + ' ' + items[i].title).appendTo('#tracks');
+//        });
+//}
