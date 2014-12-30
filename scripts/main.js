@@ -26,7 +26,7 @@ function DZClick()
     });
 }
 
-$(document).load(function ()
+$(document).ready(function ()
 {
     VK.Auth.getLoginStatus(VKAuthInfo);
     DZ.getLoginStatus(DZAuthInfo);
