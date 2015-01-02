@@ -1,17 +1,20 @@
-VK.init({
-    apiId: 4703399
-});
+var cdata = new ConnectionData(4703399, 149671);
 
-DZ.init({
-    appId: 149671,
-    channelUrl: 'http://vktodeezer.azurewebsites.net'
-});
-
-var cdata = new ConnectionData();
-function ConnectionData()
+function ConnectionData(vk_id, dz_id)
 {
-    this.vk = {};
-    this.dz = {};
+    this.vk = {}; this.dz = {};
+
+    VK.init({
+        apiId: vk_id
+    });
+
+    DZ.init({
+        appId: dz_id,
+        channelUrl: 'http://vktodeezer.azurewebsites.net'
+    });
+
+    VK.Auth.getLoginStatus(VKAuthInfo);
+    DZ.getLoginStatus(DZAuthInfo);
 }
 
 function VKClick()
@@ -28,8 +31,8 @@ function DZClick()
 
 window.onload = function ()
 {
-    VK.Auth.getLoginStatus(VKAuthInfo);
-    DZ.getLoginStatus(DZAuthInfo);
+    //VK.Auth.getLoginStatus(VKAuthInfo);
+    //DZ.getLoginStatus(DZAuthInfo);
 };
 
 function DZAuthInfo(response)
