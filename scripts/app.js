@@ -4,10 +4,10 @@ app.controller('AuthController', ['$log', function ($log)
 {
     var scope = this;
     this.tracks = "some str";
-    VK.Auth.logout(function (response)
-    {
-        $log.log(response.authResponse);
-    });
+    //VK.Auth.logout(function (response)
+    //{
+    //    $log.log(response.authResponse);
+    //});
 
     this.DZAuthInfo = function (response)
     {
@@ -23,6 +23,7 @@ app.controller('AuthController', ['$log', function ($log)
 
     this.VKAuthInfo = function (response)
     {
+        $log.log('VKAuthInfo');
         if (response.session)
         {
             scope.vkuid = response.session.mid;
@@ -32,7 +33,7 @@ app.controller('AuthController', ['$log', function ($log)
         {
             $log.log('Login is failed VK!');
         }
-    }
+    };
 
     this.loadTracks = function ()
     {
@@ -43,22 +44,22 @@ app.controller('AuthController', ['$log', function ($log)
         },
         function (data)
         {
-            $log.log(data[0]);            
+            $log.log(data[0]);
         });
-    }
+    };
 
     this.VKAuthClick = function ()
     {
-        VK.Auth.login(scope.VKAuthClick,8);
-    }
-    
+        VK.Auth.login(scope.VKAuthClick, 8);
+    };
+
     this.DZAuthClick = function ()
     {
         DZ.login(scope.DZAuthInfo, {
             perms: 'basic_access,manage_library,delete_library'
         });
-    }
+    };
 
-    //VK.Auth.getLoginStatus(this.VKAuthInfo);
+    VK.Auth.getLoginStatus(this.VKAuthInfo);
     DZ.getLoginStatus(this.DZAuthInfo);
 }]);
