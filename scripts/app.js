@@ -23,8 +23,8 @@ app.controller('AuthController', ['$log', function ($log)
         if (response.session)
         {
             scope.vkuid = response.session.mid;
-            scope.loadTracks();
             $log.log('Success login VK!');
+            scope.loadTracks();
         } else
         {
             $log.log('Login is failed VK!');
@@ -40,7 +40,7 @@ app.controller('AuthController', ['$log', function ($log)
         },
         function (data)
         {
-            $log.log(data);
+            $log.log(data.response);
             scope.tracks = 'Tracks loaded\n';
             for (var i = 1; i <= data.length; i++)
             {
