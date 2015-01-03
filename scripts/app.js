@@ -23,7 +23,7 @@ app.controller('AuthController', ['$log', function ($log)
         if (response.session)
         {
             scope.vkuid = response.session.mid;
-            loadTracks();
+            scope.loadTracks();
             $log.log('Success login VK!');
         } else
         {
