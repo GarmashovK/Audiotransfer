@@ -3,9 +3,7 @@ var app = angular.module('vktodeezer', []);
 app.controller('AuthController', ['$log', '$window', function ($log, $window)
 {
     var scope = this;
-    this.tracks = [
-        { artist: 'test1', title: 'test2' }
-    ];
+    this.tracks = [];
 
     this.DZAuthInfo = function (response)
     {
