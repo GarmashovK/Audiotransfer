@@ -27,13 +27,12 @@ app.controller('AuthController', ['$log', function ($log)
         {
             scope.vkuid = response.session.mid;
             $log.log('Success login VK!');
-            scope.loadTracks();
         } else
         {
             $log.log('Login is failed VK!');
         }
     };
-
+    
     this.loadTracks = function ()
     {
         VK.Api.call('audio.get', {
