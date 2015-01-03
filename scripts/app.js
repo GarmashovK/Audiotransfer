@@ -40,6 +40,7 @@ app.controller('AuthController', ['$log', function ($log)
         },
         function (data)
         {
+            $log(data);
             scope.tracks = 'Tracks loaded\n';
             for (var i = 1; i <= data.length; i++)
             {
