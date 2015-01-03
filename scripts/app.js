@@ -64,13 +64,14 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         VK.Auth.logout(function (data)
         {
             $log.log('success logout!');
+            $log.log(data);
         })
     }
 
     $window.onload = function ()
     {
         $log.log('windowonload');
-        VK.Auth.getLoginStatus(this.VKAuthInfo);
-        DZ.getLoginStatus(this.DZAuthInfo);
+        VK.Auth.getLoginStatus(scope.VKAuthInfo);
+        DZ.getLoginStatus(scope.DZAuthInfo);
     }
 }]);
