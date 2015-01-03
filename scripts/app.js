@@ -4,7 +4,7 @@ app.controller('AuthController', ['$log', function ($log)
 {
     var scope = this;
     this.tracks = "some str";
-    VK.Auth.logout();
+    //VK.Auth.logout();
 
     this.DZAuthInfo = function (response)
     {
@@ -57,5 +57,5 @@ app.controller('AuthController', ['$log', function ($log)
     }
 
     //VK.Auth.getLoginStatus(this.VKAuthInfo);
-    //DZ.getLoginStatus(this.DZAuthInfo);
+    DZ.getLoginStatus(this.DZAuthInfo);
 }]);
