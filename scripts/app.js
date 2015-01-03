@@ -27,7 +27,7 @@ app.controller('AuthController', ['$log', function ($log)
         {
             scope.vkuid = response.session.mid;
             $log.log('Success login VK!');
-            //scope.loadTracks();
+            scope.loadTracks();
         } else
         {
             $log.log('Login is failed VK!');
@@ -36,15 +36,18 @@ app.controller('AuthController', ['$log', function ($log)
 
     this.loadTracks = function ()
     {
-        VK.Api('audio.get', {
+        VK.Api.call('audio.get', {
             owner_id: scope.vkuid,
             need_user: 0,
             count: 3
         },
         function (data)
         {
-            scope.tracks += '\n' + data[1].artist + ' ' + data[1].title;
-            $log.log(data[0]);
+            scope.tracks = '';
+            for (var i = 1; i <= data.length; i++)
+            {
+                scope.tracks += '\n' + data[i].artist + ' ' + data[i].title;
+            }
         });
     };
 
