@@ -1,12 +1,3 @@
-VK.init({
-    apiId: 4703399
-});
-
-DZ.init({
-    appId: 149671,
-    channelUrl: 'http://vktodeezer.azurewebsites.net'
-});
-
 var app = angular.module('vktodeezer', []);
 
 app.controller('AuthController', ['$log', function ($log)
