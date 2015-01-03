@@ -3,7 +3,7 @@ var app = angular.module('vktodeezer', []);
 app.controller('AuthController', ['$log', '$window', function ($log, $window)
 {
     var scope = this;
-    this.tracks = "some str";
+    this.tracks = [];
 
     this.DZAuthInfo = function (response)
     {
@@ -39,10 +39,10 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         function (data)
         {
             $log.log(data);
-            scope.tracks = '';
+            scope.tracks = [];
             for (var i = 1; i <= data.length; i++)
             {
-                scope.tracks += '\n' + data[i].artist + ' ' + data[i].title;
+                scope.tracks.push(data[i]);
             }
         });
     };
