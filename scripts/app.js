@@ -40,10 +40,11 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         {
             $log.log(data);
             scope.tracks = [];
-            for (var i = 1; i <= data.length; i++)
+            for (var i = 1; i < data.length; i++)
             {
                 scope.tracks.push(data[i]);
             }
+            $log.log(scope.tracks);
         });
     };
 
