@@ -4,6 +4,7 @@ var app = angular.module('vktodeezer', []);
 app.controller('AuthController', ['$log', function ($log)
 {
     var scope = this;
+    scope.tracks = 'Tracks loaded';
 
     this.DZAuthInfo = function (response)
     {
