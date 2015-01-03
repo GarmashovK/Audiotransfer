@@ -64,6 +64,6 @@ app.controller('AuthController', ['$log', function ($log)
         });
     }
 
-    VK.Auth.getLoginStatus(this.VKAuthInfo);
-    DZ.getLoginStatus(this.DZAuthInfo);
+    //VK.Auth.getLoginStatus(this.VKAuthInfo);
+    //DZ.getLoginStatus(this.DZAuthInfo);
 }]);
