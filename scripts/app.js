@@ -38,11 +38,16 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         },
         function (data)
         {
-            $log.log(data);
-            scope.tracks = [];
-            for (var i = 1; i < data.length; i++)
+            $log.log(data.response);
+            if (data.response)
             {
-                scope.tracks.push(data[i]);
+                for (var i = 1; i < data.response.length; i++)
+                {
+                    scope.tracks.push(data.response[i]);
+                }
+            } else
+            {
+
             }
             $log.log(scope.tracks);
         });
