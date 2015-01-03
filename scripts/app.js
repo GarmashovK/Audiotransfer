@@ -38,7 +38,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         },
         function (data)
         {
-            $log.log(data.response);
+            $log.log(data);
             if (data.response)
             {
                 for (var i = 1; i < data.response.length; i++)
