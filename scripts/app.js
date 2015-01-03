@@ -4,7 +4,6 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
 {
     var scope = this;
     this.tracks = "some str";
-    VK.Auth.logout();
 
     this.DZAuthInfo = function (response)
     {
@@ -62,6 +61,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
 
     $window.onload = function ()
     {
+        $log.log('windowonload');
         VK.Auth.getLoginStatus(this.VKAuthInfo);
         DZ.getLoginStatus(this.DZAuthInfo);
     }
