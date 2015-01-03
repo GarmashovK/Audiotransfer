@@ -40,6 +40,7 @@ app.controller('AuthController', ['$log', function ($log)
         },
         function (data)
         {
+            $log.log(data);
             scope.tracks = 'Tracks loaded\n';
             for (var i = 1; i <= data.length; i++)
             {
@@ -50,7 +51,7 @@ app.controller('AuthController', ['$log', function ($log)
 
     this.VKAuthClick = function ()
     {
-        VK.Auth.getLoginStatus(scope.VKAuthClick, 8);
+        VK.Auth.login(scope.VKAuthClick,8);
     }
     
     this.DZAuthClick = function ()
@@ -59,4 +60,7 @@ app.controller('AuthController', ['$log', function ($log)
             perms: 'basic_access,manage_library,delete_library'
         });
     }
+
+    VK.Auth.getLoginStatus(this.VKAuthInfo);
+    DZ.getLoginStatus(this.DZAuthInfo);
 }]);
