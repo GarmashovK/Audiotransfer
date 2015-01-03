@@ -1,5 +1,13 @@
-var app = angular.module('vktodeezer', []);
+VK.init({
+    apiId: 4703399
+});
 
+DZ.init({
+    appId: 149671,
+    channelUrl: 'http://vktodeezer.azurewebsites.net'
+});
+
+var app = angular.module('vktodeezer', []);
 
 app.controller('AuthController', ['$log', function ($log)
 {
@@ -36,16 +44,11 @@ app.controller('AuthController', ['$log', function ($log)
         VK.Api('audio.get', {
             owner_id: scope.vkuid,
             need_user: 0,
-            count: 5
+            count: 3
         },
         function (data)
         {
-            $log.log(data.response);
-            scope.tracks = 'Tracks loaded\n';
-            for (var i = 1; i <= data.length; i++)
-            {
-                scope.tracks += '\n' + data[i].artist + ' ' + data[i].title;
-            }
+            $log.log(data[0]);            
         });
     }
 
@@ -61,6 +64,6 @@ app.controller('AuthController', ['$log', function ($log)
         });
     }
 
-    //VK.Auth.getLoginStatus(this.VKAuthInfo);
-    //DZ.getLoginStatus(this.DZAuthInfo);
+    VK.Auth.getLoginStatus(this.VKAuthInfo);
+    DZ.getLoginStatus(this.DZAuthInfo);
 }]);
