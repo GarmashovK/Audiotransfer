@@ -4,10 +4,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
 {
     var scope = this;
     this.tracks = "some str";
-    //VK.Auth.logout(function (response)
-    //{
-    //    $log.log(response.authResponse);
-    //});
+    VK.Auth.logout();
 
     this.DZAuthInfo = function (response)
     {
