@@ -39,6 +39,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         function (data)
         {
             $log.log(data);
+            scope.tracks = [];
             if (data.response)
             {
                 for (var i = 1; i < data.response.length; i++)
