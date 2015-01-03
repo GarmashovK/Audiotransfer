@@ -18,9 +18,11 @@
             <input type="button" value="load tracks" ng-click="authCtrl.loadTracks()" /><br />
             <input type="button" id="DZAuthBtn" value="dz" ng-click="authCtrl.DZAuthClick()" /><br />
             <div>
-                <div ng-repeat="track in authCtrl.tracks">
-                    {{track.artist}}-{{track.title}}
-                </div>
+                <ul>
+                    <lil ng-repeat="track in authCtrl.tracks">
+                        {{track.artist}}-{{track.title}}
+                    </lil>
+                </ul>
             </div>
         </div>
     </div>

@@ -34,7 +34,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         VK.Api.call('audio.get', {
             owner_id: scope.vkuid,
             need_user: 0,
-            count: 3
+            count: 10
         },
         function (data)
         {
@@ -50,6 +50,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
             {
 
             }
+            scope.$digest();
             $log.log(scope.tracks);
         });
     };
