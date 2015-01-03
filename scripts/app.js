@@ -4,7 +4,7 @@ var app = angular.module('vktodeezer', []);
 app.controller('AuthController', ['$log', function ($log)
 {
     var scope = this;
-    scope.tracks = [];
+    this.tracks = "some str";
 
     this.DZAuthInfo = function (response)
     {
@@ -40,7 +40,12 @@ app.controller('AuthController', ['$log', function ($log)
         },
         function (data)
         {
-            scope.tracks = data[1].title;
+            scope.tracks = 'Tracks loaded\n';
+            for (var i = 1; i <= data.length; i++)
+            {
+                scope.tracks += '\n' + data[i].artist + ' ' + data[i].title;
+            }
+            $log.log(scope.tracks);
         });
     }
 
