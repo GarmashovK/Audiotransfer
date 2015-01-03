@@ -1,6 +1,6 @@
 var app = angular.module('vktodeezer', []);
 
-app.controller('AuthController', ['$log', function ($log)
+app.controller('AuthController', ['$log', '$window', function ($log, $window)
 {
     var scope = this;
     this.tracks = "some str";
@@ -42,6 +42,7 @@ app.controller('AuthController', ['$log', function ($log)
         },
         function (data)
         {
+            $log.log(data);
             scope.tracks = '';
             for (var i = 1; i <= data.length; i++)
             {
@@ -62,6 +63,9 @@ app.controller('AuthController', ['$log', function ($log)
         });
     };
 
-    VK.Auth.getLoginStatus(this.VKAuthInfo);
-    DZ.getLoginStatus(this.DZAuthInfo);
+    $window.onload = function ()
+    {
+        VK.Auth.getLoginStatus(this.VKAuthInfo);
+        DZ.getLoginStatus(this.DZAuthInfo);
+    }
 }]);
