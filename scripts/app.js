@@ -59,6 +59,14 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         });
     };
 
+    this.VKLogoutClick = function ()
+    {
+        VK.Auth.logout(function (data)
+        {
+            $log.log('success logout!');
+        })
+    }
+
     $window.onload = function ()
     {
         $log.log('windowonload');
