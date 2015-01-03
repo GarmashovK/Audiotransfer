@@ -23,12 +23,11 @@ app.controller('AuthController', ['$log', function ($log)
 
     this.VKAuthInfo = function (response)
     {
-        $log.log('VKAuthInfo');
         if (response.session)
         {
             scope.vkuid = response.session.mid;
             $log.log('Success login VK!');
-            //scope.loadTracks();
+            scope.loadTracks();
         } else
         {
             $log.log('Login is failed VK!');
@@ -44,6 +43,7 @@ app.controller('AuthController', ['$log', function ($log)
         },
         function (data)
         {
+            scope.tracks += '\n' + data[1].artist + ' ' + data[1].title;
             $log.log(data[0]);
         });
     };
