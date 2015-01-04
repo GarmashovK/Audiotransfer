@@ -19,8 +19,8 @@
             <input type="button" id="DZAuthBtn" value="dz" ng-click="authCtrl.DZAuthClick()" /><br />
             <div>
                 <!--<input type="text" ng-model="searchText"/>-->
-                <ul ng-show="authCtrl.tracks.length != 0">
-                    <li ng-repeat="track in authCtrl.tracks | filter:searchText">
+                <ul ng-cloak>
+                    <li data-ng-repeat="track in authCtrl.tracks">
                         {{track.artist}}-{{track.title}}
                     </li>
                 </ul>
