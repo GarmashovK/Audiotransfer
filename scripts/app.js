@@ -42,14 +42,15 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         function (data)
         {
             $log.log(data);
-            scope.tracks = [];
             if (data.response)
             {
+                scope.tracks = [];
                 for (var i = 1; i < data.response.length; i++)
                 {
                     scope.tracks.push(data.response[i]);
                 }
                 scope.tracks_offset += scope.tracks_count;
+                $scope.$apply();
             } else
             {
 
