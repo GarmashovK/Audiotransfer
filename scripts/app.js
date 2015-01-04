@@ -52,13 +52,10 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
             $log.log(data);
             if (data.response)
             {
-                scope.apply(function ()
+                for (var i = 1; i < data.response.length; i++)
                 {
-                    for (var i = 1; i < data.response.length; i++)
-                    {
-                        scope.addTrack(data.response[i]);
-                    }
-                });
+                    scope.addTrack(data.response[i]);
+                }
             } else
             {
                 $log.log('bad request');
