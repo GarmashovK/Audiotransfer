@@ -4,6 +4,8 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
 {
     var scope = this;
     this.tracks = [];
+    this.tracks_offset = 0;
+    this.tracks_count = 10;
 
     this.DZAuthInfo = function (response)
     {
@@ -34,7 +36,8 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
         VK.Api.call('audio.get', {
             owner_id: scope.vkuid,
             need_user: 0,
-            count: 10
+            offset: scope.tracks_offset,
+            count: scope.tracks_count
         },
         function (data)
         {
@@ -46,6 +49,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
                 {
                     scope.tracks.push(data.response[i]);
                 }
+                scope.tracks_offset += scope.tracks_count;
             } else
             {
 
