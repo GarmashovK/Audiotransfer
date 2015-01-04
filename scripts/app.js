@@ -7,6 +7,14 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
     this.tracks_offset = 0;
     this.tracks_count = 10;
 
+    this.clearTracks = function () { tracks = [];}
+
+    this.addTrack = function (track)
+    {
+        scope.tracks.push(track);
+        scope.tracks_offset++;
+    }
+
     this.DZAuthInfo = function (response)
     {
         if (response.authResponse)
@@ -46,12 +54,11 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
             {
                 for (var i = 1; i < data.response.length; i++)
                 {
-                    scope.tracks.push(data.response[i]);
+                    scope.addTrack(data.response[i]);
                 }
-                scope.tracks_offset += scope.tracks_count;
             } else
             {
-
+                $log.log('bad request');
             }
             $log.log(scope.tracks);
         });
