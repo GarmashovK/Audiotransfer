@@ -50,7 +50,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
                     scope.tracks.push(data.response[i]);
                 }
                 scope.tracks_offset += scope.tracks_count;
-                $scope.$apply();
+                scope.$apply();
             } else
             {
 
