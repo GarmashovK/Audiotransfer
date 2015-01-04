@@ -52,7 +52,7 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
             $log.log(data);
             if (data.response)
             {
-                scope.$apply(function ()
+                scope.apply(function ()
                 {
                     for (var i = 1; i < data.response.length; i++)
                     {
