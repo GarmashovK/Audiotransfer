@@ -1,96 +1,89 @@
 var app = angular.module('vktodeezer', []);
 
-app.controller('AuthController', ['$log', '$watchCollection', '$digest', '$window',
-    function ($log, $window, $watchCollection, $digest)
+app.controller('AuthController', ['$log', '$window', function ($log, $window)
+{
+    var scope = this;
+    this.tracks = [];
+    this.tracks_offset = 0;
+    this.tracks_count = 10;
+
+    this.DZAuthInfo = function (response)
     {
-        var scope = this;
-        this.tracks = [];
-        this.tracks_offset = 0;
-        this.tracks_count = 10;
-
-        this.$watchCollection('tracks', function (newTracks, oldTracks)
+        if (response.authResponse)
         {
-            $log.log(oldTracks);
-        });
-
-        this.DZAuthInfo = function (response)
+            scope.dzuid = response.userID | response.authResponse.userID;
+            $log.log('Success login DZ!');
+        } else
         {
-            if (response.authResponse)
-            {
-                scope.dzuid = response.userID | response.authResponse.userID;
-                $log.log('Success login DZ!');
-            } else
-            {
-                $log.log('Login is failed DZ!');
-            }
+            $log.log('Login is failed DZ!');
         }
+    }
 
-        this.VKAuthInfo = function (response)
+    this.VKAuthInfo = function (response)
+    {
+        if (response.session)
         {
-            if (response.session)
-            {
-                scope.vkuid = response.session.mid;
-                $log.log('Success login VK!');
-            } else
-            {
-                $log.log('Login is failed VK!');
-            }
-        };
-
-        this.loadTracks = function ()
+            scope.vkuid = response.session.mid;
+            $log.log('Success login VK!');
+        } else
         {
-            VK.Api.call('audio.get', {
-                owner_id: scope.vkuid,
-                need_user: 0,
-                offset: scope.tracks_offset,
-                count: scope.tracks_count
-            },
-            function (data)
+            $log.log('Login is failed VK!');
+        }
+    };
+    
+    this.loadTracks = function ()
+    {
+        VK.Api.call('audio.get', {
+            owner_id: scope.vkuid,
+            need_user: 0,
+            offset: scope.tracks_offset,
+            count: scope.tracks_count
+        },
+        function (data)
+        {
+            $log.log(data);
+            if (data.response)
             {
-                $log.log(data);
-                if (data.response)
+                var tracks = [];
+                for (var i = 1; i < data.response.length; i++)
                 {
-                    var tracks = [];
-                    for (var i = 1; i < data.response.length; i++)
-                    {
-                        tracks.push(data.response[i]);
-                    }
-                    scope.tracks_offset += scope.tracks_count;
-                    scope.tracks = tracks;
-                    scope.$digest();
-                } else
-                {
-
+                    tracks.push(data.response[i]);
                 }
-                $log.log(scope.tracks);
-            });
-        };
-
-        this.VKAuthClick = function ()
-        {
-            VK.Auth.login(scope.VKAuthClick, 8);
-        };
-
-        this.DZAuthClick = function ()
-        {
-            DZ.login(scope.DZAuthInfo, {
-                perms: 'basic_access,manage_library,delete_library'
-            });
-        };
-
-        this.VKLogoutClick = function ()
-        {
-            VK.Auth.logout(function (data)
+                scope.tracks_offset += scope.tracks_count;
+                scope.tracks = tracks;
+            } else
             {
-                $log.log('success logout!');
-                $log.log(data);
-            })
-        }
 
-        $window.onload = function ()
+            }
+            $log.log(scope.tracks);
+        });
+    };
+
+    this.VKAuthClick = function ()
+    {
+        VK.Auth.login(scope.VKAuthClick, 8);
+    };
+
+    this.DZAuthClick = function ()
+    {
+        DZ.login(scope.DZAuthInfo, {
+            perms: 'basic_access,manage_library,delete_library'
+        });
+    };
+
+    this.VKLogoutClick = function ()
+    {
+        VK.Auth.logout(function (data)
         {
-            $log.log('windowonload');
-            VK.Auth.getLoginStatus(scope.VKAuthInfo);
-            DZ.getLoginStatus(scope.DZAuthInfo);
-        }
-    }]);
+            $log.log('success logout!');
+            $log.log(data);
+        })
+    }
+
+    $window.onload = function ()
+    {
+        $log.log('windowonload');
+        VK.Auth.getLoginStatus(scope.VKAuthInfo);
+        DZ.getLoginStatus(scope.DZAuthInfo);
+    }
+}]);
