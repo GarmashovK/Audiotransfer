@@ -17,7 +17,7 @@
             <input type="button" id="VKAuthBtn" value="vkauth" ng-click="authCtrl.VKAuthClick()" />
             <input type="button" value="load tracks" ng-click="authCtrl.loadTracks()" /><br />
             <input type="button" id="DZAuthBtn" value="dz" ng-click="authCtrl.DZAuthClick()" /><br />
-            <ul>
+            <ul ng-bind="authCtrl.tracks">
                 <li ng-repeat="track in authCtrl.tracks">
                     {{track.artist}}-{{track.title}}
                 </li>
