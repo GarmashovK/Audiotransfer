@@ -12,7 +12,7 @@
 <body ng-app="vktodeezer">
     <h1>VkTransfer Application</h1>
     <div class="col-md-8">
-        <div id="auth_controll" ng-controller="AuthController as authCtrl">
+        <div ng-controller="AuthController as authCtrl">
             <input type="button" value="vklogout" ng-click="authCtrl.VKLogoutClick()"/>
             <input type="button" id="VKAuthBtn" value="vkauth" ng-click="authCtrl.VKAuthClick()" />
             <input type="button" value="load tracks" ng-click="authCtrl.loadTracks()" /><br />
