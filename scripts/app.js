@@ -44,13 +44,12 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
             $log.log(data);
             if (data.response)
             {
-                var tracks = [];
+                scope.tracks.length = 0;
                 for (var i = 1; i < data.response.length; i++)
                 {
-                    tracks.push(data.response[i]);
+                    scope.tracks.push(data.response[i]);
                 }
                 scope.tracks_offset += scope.tracks_count;
-                scope.tracks = tracks;
             } else
             {
 
