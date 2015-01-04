@@ -44,7 +44,6 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
             $log.log(data);
             if (data.response)
             {
-                scope.tracks.length = 0;
                 for (var i = 1; i < data.response.length; i++)
                 {
                     scope.tracks.push(data.response[i]);
