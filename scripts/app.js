@@ -50,7 +50,6 @@ app.controller('AuthController', ['$log', '$window', function ($log, $window)
             {
 
             }
-            scope.$digest();
             $log.log(scope.tracks);
         });
     };
