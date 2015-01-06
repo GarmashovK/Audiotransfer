@@ -55,6 +55,7 @@ app.controller('AuthController', ['$scope', '$log', '$window', function ($scope,
                 {
                     $scope.addTrack(data.response[i]);
                 }
+                $scope.$digest();
             } else
             {
                 $log.log('bad request');
