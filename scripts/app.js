@@ -86,7 +86,7 @@ app.service('VKService',
 
 app.controller('AuthController',
     ['$scope', '$log', '$window', 'VKService',
-    function ($scope, $log, $window)
+    function ($scope, $log, $window, VKService)
     {
         $scope.tracks = [];
 
