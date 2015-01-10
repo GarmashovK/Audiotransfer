@@ -1,8 +1,8 @@
 var app = angular.module('vktodeezer', []);
 
 app.service('VKService',
-    ['$rootScope',
-    function ($rootScope)
+    ['$rootScope', '$log'
+    function ($rootScope, $log)
     {
         // ref to this
         var service = this;
@@ -80,6 +80,7 @@ app.service('VKService',
 
         this.getLoginStatus = function ()
         {
+            $log.log('getloginstatus in vkservice');
             VK.Auth.getLoginStatus(VKAuthInfo);
         }
     }])
