@@ -137,6 +137,7 @@ app.service('VKService',
             $scope.$on('vk_failed_login', function () { $log.log('VK login failed'); });
             $scope.$on('vk_tracks_loaded', function (tracks)
             {
+                $log.log(tracks);
                 $scope.tracks = tracks;
                 $scope.$digest();
 
