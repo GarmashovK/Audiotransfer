@@ -65,7 +65,7 @@ app.service('VKService',
                     $rootScope.$broadcast('vk_tracks_not_loaded');
                 }
             };
-
+            $log.log('tracks loading');
             VK.Api.call('audio.get',
                 {
                     // uid
@@ -142,6 +142,10 @@ app.service('VKService',
                 $scope.$digest();
 
                 offset += 10;
+            });
+            $scope.$on('vk_tracks_not_loaded', function ()
+            {
+                $log.log('tracks no loaded!');
             });
 
             $log.log('windowonload');
