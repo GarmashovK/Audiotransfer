@@ -80,7 +80,6 @@ app.service('VKService',
 
         this.getLoginStatus = function ()
         {
-            $log.log('getloginstatus in vkservice');
             VK.Auth.getLoginStatus(VKAuthInfo);
         }
     }])
@@ -119,12 +118,12 @@ app.service('VKService',
 
         $scope.loadTracks = function ()
         {
-            VKService.loadUserTracks(offset, count);
             $scope.on('vk_tracks_loaded', function (tracks)
             {
                 $scope.tracks = tracks;
                 $scope.$digest();
             })
+            VKService.loadUserTracks(offset, count);            
         }
 
         $scope.VKLogoutClick = function ()
