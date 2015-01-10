@@ -118,12 +118,8 @@ app.service('VKService',
 
         $scope.loadTracks = function ()
         {
-            $scope.on('vk_tracks_loaded', function (tracks)
-            {
-                $scope.tracks = tracks;
-                $scope.$digest();
-            })
-            VKService.loadUserTracks(offset, count);            
+            
+            VKService.loadUserTracks(offset, count);
         }
 
         $scope.VKLogoutClick = function ()
@@ -139,6 +135,14 @@ app.service('VKService',
         {
             $scope.$on('vk_success_login', function () { $log.log('success VK login'); });
             $scope.$on('vk_failed_login', function () { $log.log('VK login failed'); });
+            $scope.on('vk_tracks_loaded', function (tracks)
+            {
+                $scope.tracks = tracks;
+                $scope.$digest();
+
+                offset += 10;
+            });
+
             $log.log('windowonload');
             VKService.getLoginStatus();
             DZ.getLoginStatus($scope.DZAuthInfo);
