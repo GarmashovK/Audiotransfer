@@ -138,10 +138,10 @@ app.service('VKService',
 
         $window.onload = function ()
         {
+            $scope.$on('vk_success_login', function () { $log.log('success VK login'); });
+            $scope.$on('vk_failed_login', function () { $log.log('VK login failed'); });
             $log.log('windowonload');
             VKService.getLoginStatus();
-            $scope.$on('vk_success_login', function () { $log.log('success login'); });
-            $scope.$on('vk_failed_login', function () { $log.log('login failed'); });
             DZ.getLoginStatus($scope.DZAuthInfo);
         }
     }]);
