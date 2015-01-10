@@ -76,7 +76,7 @@ app.service('VKService',
                     offset: offset,
                     // num of tracks for loading
                     count: count
-                }, loadTracksHandler);
+                }, service.loadTracksHandler);
         };
 
         this.getLoginStatus = function ()
@@ -118,8 +118,7 @@ app.service('VKService',
         var offset = 0;
 
         $scope.loadTracks = function ()
-        {
-            
+        {            
             VKService.loadUserTracks(offset, count);
         }
 
