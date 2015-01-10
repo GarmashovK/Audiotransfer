@@ -9,26 +9,28 @@
     <script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
-<body ng-app="vktodeezer">
-    <h1>VkTransfer Application</h1>
-    <div class="col-md-8">
-        <div ng-controller="AuthController">
-            <input type="button" value="vklogout" ng-click="VKLogoutClick()" />
-            <input type="button" id="VKAuthBtn" value="vkauth" ng-click="VKAuthClick()" />
-            <input type="button" value="load tracks" ng-click="loadTracks()" /><br />
-            <input type="button" id="DZAuthBtn" value="dz" ng-click="DZAuthClick()" /><br />
+<body>
+    <div ng-app="vktodeezer">
+        <h1>VkTransfer Application</h1>
+        <div class="col-md-8">
+            <div ng-controller="AuthController">
+                <input type="button" value="vklogout" ng-click="VKLogoutClick()" />
+                <input type="button" id="VKAuthBtn" value="vkauth" ng-click="VKAuthClick()" />
+                <input type="button" value="load tracks" ng-click="loadTracks()" /><br />
+                <input type="button" id="DZAuthBtn" value="dz" ng-click="DZAuthClick()" /><br />
+                <ul>
+                    <li ng-repeat="track in tracks">
+                        {{track.artist}}-{{track.title}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
             <ul>
-                <li ng-repeat="track in tracks">
-                    {{track.artist}}-{{track.title}}
-                </li>
+                <li>hello</li>
+                <li>hello</li>
             </ul>
         </div>
-    </div>
-    <div class="col-md-4">
-        <ul>
-            <li>hello</li>
-            <li>hello</li>
-        </ul>
     </div>
     <div id="dz-root"></div>
     <script type="text/javascript">
