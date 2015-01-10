@@ -1,7 +1,7 @@
 var app = angular.module('vktodeezer', []);
 
 app.service('VKService',
-    ['$rootScope', '$log'
+    ['$rootScope', '$log',
     function ($rootScope, $log)
     {
         // ref to this
