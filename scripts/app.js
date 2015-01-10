@@ -34,6 +34,7 @@ app.service('VKService',
                 var tracks = data.response;
                 tracks.shift();  //removing response data and get only tracks
 
+                $log.log(tracks);
                 // sending tracks to scope
                 $rootScope.$broadcast('vk_tracks_loaded', tracks);
             } else
