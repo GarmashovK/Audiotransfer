@@ -25,25 +25,7 @@ app.service('VKService',
                 //$log.log('Login is failed VK!');
             }
         }
-
-        // tracks loading handling
-        var loadTracksHandler = function (data)
-        {
-            if (data.response)
-            {
-                var tracks = data.response;
-                tracks.shift();  //removing response data and get only tracks
-
-                $log.log(tracks);
-                // sending tracks to scope
-                $rootScope.$broadcast('vk_tracks_loaded', tracks);
-            } else
-            {
-                // something failed
-                $rootScope.$broadcast('vk_tracks_not_loaded');
-            }
-        };
-
+                
         /* login fun
             permissions for app
         */
@@ -66,6 +48,24 @@ app.service('VKService',
         //load from common tracklist
         this.loadUserTracks = function (offset, count)
         {
+            // tracks loading handling
+            var loadTracksHandler = function (data)
+            {
+                if (data.response)
+                {
+                    var tracks = data.response;
+                    tracks.shift();  //removing response data and get only tracks
+
+                    $log.log(tracks);
+                    // sending tracks to scope
+                    $rootScope.$broadcast('vk_tracks_loaded', tracks);
+                } else
+                {
+                    // something failed
+                    $rootScope.$broadcast('vk_tracks_not_loaded');
+                }
+            };
+
             VK.Api.call('audio.get',
                 {
                     // uid
@@ -76,7 +76,7 @@ app.service('VKService',
                     offset: offset,
                     // num of tracks for loading
                     count: count
-                }, service.loadTracksHandler);
+                }, loadTracksHandler);
         };
 
         this.getLoginStatus = function ()
