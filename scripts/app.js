@@ -139,7 +139,7 @@ app.controller('AuthController',
         $window.onload = function ()
         {
             $log.log('windowonload');
-            $scope.on('vk_success_login', function () { $log.log('success login'); });
+            $scope.$on('vk_success_login', function () { $log.log('success login'); });
             DZ.getLoginStatus($scope.DZAuthInfo);
         }
     }]);
