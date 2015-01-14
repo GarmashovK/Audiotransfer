@@ -1,0 +1,87 @@
+var app = angular.module('vkservice', [])
+
+// service module of VKApi
+.service('VKService',
+    ['$rootScope', '$log',
+    function ($rootScope, $log)
+    {
+        // ref to this
+        var service = this;
+
+        // auth handler
+        var VKAuthInfo = function (response)
+        {
+            if (response.session)
+            {
+                // set user ID
+                service.vkuid = response.session.mid;
+
+                // sending success login event
+                $rootScope.$broadcast('vk_success_login');
+                //$log.log('Success login VK!');
+            } else
+            {
+                //sending failed login event
+                $rootScope.$broadcast('vk_failed_login');
+                //$log.log('Login is failed VK!');
+            }
+        }
+
+        /* login fun
+            permissions for app
+        */
+        this.login = function (permissions)
+        {
+            VK.Auth.login(VKAuthInfo, permissions);
+        }
+
+        // logout
+        this.logout = function ()
+        {
+            VK.Auth.logout(function (data)
+            {
+                $rootScope.$broadcast('vk_success_logout');
+                //$log.log('success logout!');
+                //$log.log(data);
+            });
+        }
+
+        //load from common tracklist
+        this.loadUserTracks = function (offset, count)
+        {
+            // tracks loading handling
+            var loadTracksHandler = function (data)
+            {
+                if (data.response)
+                {
+                    var tracks = data.response;
+                    tracks.shift();  //removing response data and get only tracks
+
+                    $log.log(tracks);
+                    // sending tracks to scope
+                    $rootScope.$broadcast('vk_tracks_loaded', tracks);
+                } else
+                {
+                    // something failed
+                    $rootScope.$broadcast('vk_tracks_not_loaded');
+                }
+            };
+            $log.log('tracks loading');
+            VK.Api.call('audio.get',
+                {
+                    // uid
+                    owner_id: service.vkuid,
+                    // user data (not necessary)
+                    need_user: 0,
+                    // offset for list in tracks
+                    offset: offset,
+                    // num of tracks for loading
+                    count: count
+                }, loadTracksHandler);
+        };
+
+        this.getLoginStatus = function ()
+        {
+            VK.Auth.getLoginStatus(VKAuthInfo);
+        }
+    }]);
