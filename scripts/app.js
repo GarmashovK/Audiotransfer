@@ -1,74 +1,137 @@
-var app = angular.module('vktodeezer', ['vkservice'])
-//authCtrl
-.controller('AuthController',
-    ['$scope', '$log', '$window', 'VKService',
-    function ($scope, $log, $window, VKService)
-    {
-        $scope.tracks = [];
+﻿var app = angular.module('audio_transfer',
+    [
+        'vk_tracks_table_dir', 'dz_tracks_table_dir', 'opt',
+        , 'vkservice', 'dzservice'
+    ])
 
-        $scope.DZAuthInfo = function (response)
+.controller('AuthCtrl', ['$log', '$scope', '$window', '$rootScope', 'Options', 'VKService', 'DZService',
+    function ($log, $scope, $window, $rootScope, Options, VKService, DZService)
+    {
+        var isAuthorized = false;
+        var hCounter = 0;
+
+        var sendAuth = function ()
         {
-            if (response.authResponse)
+            hCounter++;
+            //$log.log(hCounter);
+            //$log.log(Options.isAuthorized);
+            if (Options.isAuthorized == 2 && hCounter == 2)
             {
-                $scope.dzuid = response.userID | response.authResponse.userID;
-                $log.log('Success login DZ!');
-            } else
+                isAuthorized = true;
+                $rootScope.$broadcast('authorized');
+            }
+        }
+
+        var sendNotAuth = function ()
+        {
+            hCounter++;
+            if (Options.isAuthorized < 2 && hCounter == 2)
             {
-                $log.log('Login is failed DZ!');
+                isAuthorized = false;
+                $rootScope.$broadcast('not_authorized');
             }
         }
 
         $scope.VKAuthClick = function ()
         {
-            VK.Auth.login($scope.VKAuthInfo, 8);
-        };
+            VKService.login(8);
+        }
 
         $scope.DZAuthClick = function ()
         {
-            DZ.login($scope.DZAuthInfo, {
-                perms: 'basic_access,manage_library,delete_library'
-            });
-        };
-
-        var count = 10;
-        var offset = 0;
-
-        $scope.loadTracks = function ()
-        {            
-            VKService.loadUserTracks(offset, count);
+            var perms = 'basic_access,manage_library,delete_library';
+            DZService.login(perms);
         }
 
-        $scope.VKLogoutClick = function ()
+        $scope.$on('vk_success_login', function ()
         {
-            VKService.logout();
-        }
-
-        //registering events
-        $scope.registerEvents = function ()
+            //$log.log('VK success login!');
+            $('.fa-vk').hide();
+            sendAuth();
+        });
+        $scope.$on('vk_failed_login', function ()
         {
-            $scope.$on('vk_success_login', function () { $log.log('success VK login'); });
-            $scope.$on('vk_failed_login', function () { $log.log('VK login failed'); });
-            $scope.$on('vk_tracks_loaded', function (e, tracks)
-            {
-                $log.log(tracks);
-                $scope.tracks = tracks;
-                $scope.$digest();
+            //$log.log('VK login is failed!');
+            sendNotAuth();
+        });
+        $scope.$on('dz_success_login', function ()
+        {
+            //$log.log('DZ success login!');
+            $('.login-bar-btn').hide();
+            sendAuth();
+        });
+        $scope.$on('dz_failed_login', function ()
+        {
+            //$log.log('DZ login is failed!');
+            sendNotAuth();
+        });
 
-                offset += 10;
-            });
-            $scope.$on('vk_tracks_not_loaded', function ()
-            {
-                $log.log('tracks no loaded!');
-            });
-        }
-
-        //
         $window.onload = function ()
         {
-            $log.log('windowonload');
-
-            $scope.registerEvents();
             VKService.getLoginStatus();
-            DZ.getLoginStatus($scope.DZAuthInfo);
+            DZService.getLoginStatus();
+        }        
+    }])
+
+.controller('SwitchCtrl', ['$log', '$scope', 'VKService', 'DZService', function ($log, $scope, VKService, DZService)
+{
+    $scope.isAuthorized = false;
+
+    $scope.$on('authorized', function ()
+    {
+        //$log.log('authorized');
+        $scope.isAuthorized = true;
+        $scope.$digest();
+
+        // it's prepaired for app starting
+        VKService.loadAlbums();
+        DZService.loadUserData();
+        DZService.loadPlaylists();
+    });
+
+
+    $scope.tooglePlayPause = function (btn)
+    {
+        if ($(btn).hasClass('fa-play'))
+            $(btn).removeClass('fa-play').addClass('fa-pause');
+        else
+            $(btn).removeClass('fa-pause').addClass('fa-play');
+    }
+
+    $scope.Play = function (clickEvent, url)
+    {
+        var btn = clickEvent.target;
+        var createAudio = function ()
+        {
+            var audio = new Audio(url);
+            audio.play();
+            audio.onended = function ()
+            {
+                $scope.tooglePlayPause($scope.currentTrack.btn);
+                $scope.currentTrack = null;
+            }
+            $scope.currentTrack = {
+                audio: audio,
+                btn: btn
+            }
         }
-    }]);
+
+        $scope.tooglePlayPause(btn);
+
+        if ($scope.currentTrack)
+        {
+            $scope.currentTrack.audio.pause();
+            delete $scope.currentTrack.audio;
+
+            if ($scope.currentTrack.btn != btn)
+            {
+                $scope.tooglePlayPause($scope.currentTrack.btn);
+            } else
+            {
+                $scope.currentTrack = null;
+                return;
+            }
+        }
+        createAudio();
+    }
+}]);

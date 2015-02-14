@@ -1,0 +1,42 @@
+﻿<div class="dz-tracks-table">
+    <h2>Deezer matches</h2>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>Add</th>
+                <th>Play</th>
+                <th>Artist</th>
+                <th>Title</th>
+                <th>Album</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="track in dztracks">
+                <td>
+                    <i class="fa fa-plus fa-lg fa-fw fa-border" ng-click="Add()"></i>
+                </td>
+                <td>
+                    <i class="fa fa-play fa-lg fa-fw fa-border" ng-click="dzplay($event,$index)"></i>
+                </td>
+                <td>
+                    {{track.artist.name}}
+                </td>
+                <td>
+                    {{track.title}}
+                </td>
+                <td>
+                    {{track.album.title}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="options-container">
+        <div class="dz-playlist-select">
+            <h3>Add to playlist:</h3>
+            <div>
+                <select ng-model="currentPlaylist" ng-options="playlist.title for playlist in dzplaylists">
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

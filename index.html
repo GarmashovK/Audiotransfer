@@ -1,35 +1,61 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>VkToDeezer</title>
-    <link rel="stylesheet" href="http://yastatic.net/bootstrap/3.3.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/app.css"/>
-    <script type="text/javascript" src="http://yastatic.net/angularjs/1.3.8/angular.min.js"></script>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="http://yastatic.net/jquery/cookie/1.0/jquery.cookie.min.js"></script>-->
+    <script type="text/javascript" src="scripts/angular.min.js"></script>
+
+    <!--Social libs loading-->
     <script type="text/javascript" src="https://cdns-files.deezer.com/js/min/dz.js"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
-    <script type="text/javascript" src="/scripts/services/VKService.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <script type="text/javascript" src="scripts/services/Options.js"></script>
+
+    <!--VKTracksTable scripts-->
+    <script type="text/javascript" src="scripts/controllers/VKTracksTableCtrl.js"></script>
+    <script type="text/javascript" src="scripts/directives/VKTracksTableDir.js"></script>
+    <script type="text/javascript" src="scripts/services/VKService.js"></script>
+
+    <!--DZTracksTable scripts-->
+    <script type="text/javascript" src="scripts/controllers/DZTracksTableCtrl.js"></script>
+    <script type="text/javascript" src="scripts/directives/DZTracksTableDir.js"></script>
+    <script type="text/javascript" src="scripts/services/DZService.js"></script>
+
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <title>Template of AudioTransfer</title>
 </head>
-<body ng-app="vktodeezer">
-    <h1>VkTransfer Application</h1>
-    <div class="col-md-8">
-        <div ng-controller="AuthController">
-            <input type="button" value="vklogout" ng-click="VKLogoutClick()" />
-            <input type="button" id="VKAuthBtn" value="vkauth" ng-click="VKAuthClick()" />
-            <input type="button" value="load tracks" ng-click="loadTracks()" /><br />
-            <input type="button" id="DZAuthBtn" value="dz" ng-click="DZAuthClick()" /><br />
+<body ng-app="audio_transfer">
+    <div class="navbar-container">
+        <div class="logo">
+            <a href="#">AudioTransfer</a>
+        </div>
+        <div class="login-bar" ng-controller="AuthCtrl">
             <ul>
-                <li ng-repeat="track in tracks">
-                    {{track.artist}}-{{track.title}}
+                <li>
+                    <i class="fa fa-vk fa-lg fa-fw fa-border" ng-click="VKAuthClick()"></i>
+                </li>
+                <li>
+                    <a class="login-bar-btn" href="#" ng-click="DZAuthClick()">DZ</a>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="col-md-4">
-        <ul>
-            <li>hello</li>
-            <li>hello</li>
-        </ul>
+    <div class="content-container" ng-controller="SwitchCtrl">
+        <div ng-hide="isAuthorized">
+            <h3>To start please login.</h3>
+        </div>
+        <div ng-show="isAuthorized">
+            <vk-tracks></vk-tracks>
+            <dz-tracks></dz-tracks>
+        </div>
+    </div>
+    <div class="footer-container">
+        <div class="copyright">
+            Garmashov Konstantin<i class="fa fa-copyright fa-lg fa-fw"></i>2015
+        </div>
     </div>
     <div id="dz-root"></div>
     <script type="text/javascript">
@@ -39,7 +65,7 @@
 
         DZ.init({
             appId: 149671,
-            channelUrl: 'http://vktodeezer.azurewebsites.net'
+            channelUrl: "http://localhost:54442/index.html"
         });
     </script>
 </body>

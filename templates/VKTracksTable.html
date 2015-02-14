@@ -1,0 +1,36 @@
+﻿<div class="vk-tracks-table">
+    <h2>VK Tracks</h2>
+    <div class="options-container">
+        <i class="fa fa-chevron-left fa-lg fa-fw fa-border" ng-click="backward()"></i>
+        <i class="fa fa-chevron-right fa-lg fa-fw fa-border" ng-click="upward()"></i>
+        <div class="vk-album-select">
+            <h3>Select album:</h3>
+            <div>
+                <select ng-model="currentAlbum" ng-change="SelectAlbum()" ng-options="album.title for album in vkalbums">
+                </select>
+            </div>
+        </div>
+    </div>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>Find</th>
+                <th>Play</th>
+                <th>Artist</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="track in vktracks">
+                <td>
+                    <i class="fa fa-search fa-lg fa-fw fa-border" ng-click="Search($index)"></i>
+                </td>
+                <td>
+                    <i class="fa fa-play fa-lg fa-fw fa-border" ng-click="vkplay($event,$index)"></i>
+                </td>
+                <td>{{track.artist}}</td>
+                <td>{{track.title}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
