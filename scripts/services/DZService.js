@@ -63,16 +63,43 @@ dzserv.service('DZService',
             });
         }
 
-        this.SearchTrack = function (track)
-        {
-            var artist = escape(track.artist);
-            var title = escape(track.title);
-            var query = escape(artist + ' ' + title); //$log.log(query);
+        this.SearchTrack = function (track, byartist, bytitle)
+        {            
+            var artist, title, query = "";
+            if (byartist) { artist = escape(track.artist); query += artist; }
+            if (bytitle)
+            {
+                title = escape(track.title);
+                if (query.length) query += ' ';
+                query += title;
+            }
+            if (byartist && bytitle) query = artist + ' ' + title;
+            query = escape(query);
 
-            DZ.api('/search/track?q=' + query, function (response)
+            DZ.api('/search?q=' + query, function (response)
             {
                 $rootScope.$broadcast('dz_tracks_searched', response.data);
             });
+        }
+        
+        this.addTrackToPlaylist = function (track, playlist)
+        {
+            DZ.api('/playlist/' + playlist.id + '/tracks', 'POST', { songs: track.id },
+                function (response)
+                {
+                    if (!response.error)
+                    {
+                        $rootScope.$broadcast('success_add_track');
+                    } else
+                    {
+                        switch (response.error.code)
+                        {
+                            case 500:
+                                $rootScope.$broadcast('tracks_already_exists');
+                                break;
+                        }
+                    }
+                });
         }
 
         //login status checking

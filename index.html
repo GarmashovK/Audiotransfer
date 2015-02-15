@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/app.css" />
-    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="http://yastatic.net/jquery/2.1.3/jquery.min.js"></script>
     <!--<script type="text/javascript" src="http://yastatic.net/jquery/cookie/1.0/jquery.cookie.min.js"></script>-->
-    <script type="text/javascript" src="scripts/angular.min.js"></script>
-
+    <script type="text/javascript" src="http://yastatic.net/angularjs/1.3.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-animate.min.js"></script>
     <!--Social libs loading-->
     <script type="text/javascript" src="https://cdns-files.deezer.com/js/min/dz.js"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
@@ -25,7 +26,7 @@
     <script type="text/javascript" src="scripts/services/DZService.js"></script>
 
     <script type="text/javascript" src="scripts/app.js"></script>
-    <title>Template of AudioTransfer</title>
+    <title>AudioTransfer</title>
 </head>
 <body ng-app="audio_transfer">
     <div class="navbar-container">
@@ -62,7 +63,6 @@
         VK.init({
             apiId: 4703399
         });
-
         DZ.init({
             appId: 149671,
             channelUrl: "http://localhost:54442/index.html"

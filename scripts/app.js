@@ -70,7 +70,7 @@
         {
             VKService.getLoginStatus();
             DZService.getLoginStatus();
-        }        
+        }
     }])
 
 .controller('SwitchCtrl', ['$log', '$scope', 'VKService', 'DZService', function ($log, $scope, VKService, DZService)
