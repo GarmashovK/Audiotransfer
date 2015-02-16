@@ -174,3 +174,17 @@
     margin-top:10px;
     margin-right:10%;
 }
+
+.footer-container .donate-btn{
+    float:left;
+    font-size: 17px;
+    font-weight:bold;
+    margin-top:10px;
+    margin-left:10%;
+    color: black;
+    text-decoration: none;
+}
+
+.footer-container .donate-btn:hover {
+    color:white;
+}
