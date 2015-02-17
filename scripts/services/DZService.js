@@ -7,6 +7,7 @@ dzserv.service('DZService',
 
         var DZAuthInfo = function (response)
         {
+            $log.log(response);
             if (response.authResponse)
             {
                 service.dzuid = response.userID | response.authResponse.userID;
@@ -66,15 +67,14 @@ dzserv.service('DZService',
         this.SearchTrack = function (track, byartist, bytitle)
         {            
             var artist, title, query = "";
-            if (byartist) { artist = escape(track.artist); query += artist; }
+            if (byartist) { artist = track.artist; query += artist; }
             if (bytitle)
             {
-                title = escape(track.title);
+                title = track.title;
                 if (query.length) query += ' ';
                 query += title;
             }
             if (byartist && bytitle) query = artist + ' ' + title;
-            query = escape(query);
 
             DZ.api('/search?q=' + query, function (response)
             {
