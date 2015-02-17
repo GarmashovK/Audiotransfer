@@ -1,8 +1,33 @@
 ﻿var app = angular.module('audio_transfer',
-    [
+    [   'ngAnimate',
         'vk_tracks_table_dir', 'dz_tracks_table_dir', 'opt',
         , 'vkservice', 'dzservice'
     ])
+
+.animation('.table-row-animation', function ()
+{
+    return {
+        enter: function (element, done)
+        {
+            element.css({
+                position: 'relative',
+                left: -50,
+                display: 'block'
+            });
+            
+            $(element).animate({ left: "+=50" }, function ()
+            {
+                element.css({ display: '' }); done();
+            });
+
+            return function (cancelled)
+            {
+                if (cancelled)
+                    element.stop();
+            }
+        }
+    };
+})
 
 .controller('AuthCtrl', ['$log', '$scope', '$window', '$rootScope', 'Options', 'VKService', 'DZService',
     function ($log, $scope, $window, $rootScope, Options, VKService, DZService)
