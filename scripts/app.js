@@ -40,7 +40,7 @@
             hCounter++;
             //$log.log(hCounter);
             //$log.log(Options.isAuthorized);
-            if (Options.isAuthorized == 2 && hCounter == 2)
+            if (Options.isAuthorized == 2 && hCounter >= 2)
             {
                 isAuthorized = true;
                 $rootScope.$broadcast('authorized');
@@ -50,7 +50,7 @@
         var sendNotAuth = function ()
         {
             hCounter++;
-            if (Options.isAuthorized < 2 && hCounter == 2)
+            if (Options.isAuthorized < 2 && hCounter >= 2)
             {
                 isAuthorized = false;
                 $rootScope.$broadcast('not_authorized');
