@@ -6,7 +6,7 @@
         $scope.vktracks = [];
         $scope.vkalbums = [{ album_id: 0, title: 'My music' }];
 
-        var count = 10;
+        var count = 15;
         var offset = 0;
 
         //tracks loadded event
