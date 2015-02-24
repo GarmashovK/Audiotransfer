@@ -1,4 +1,4 @@
-var app = angular.module('vkservice', ['opt'])
+﻿var app = angular.module('vkservice', ['opt'])
 
 // service module of VKApi
 .service('VKService',
